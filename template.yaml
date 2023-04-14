@@ -1,0 +1,22 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Transform: AWS::Serverless-2016-10-31
+Description: >
+  TrustedAdvisorGPT 
+
+Resources:
+  TrustedAdvisorGPT:
+    Type: AWS::Serverless::Function
+    Properties:
+      FunctionName: TrustedAdvisorGPT
+      CodeUri: app/
+      Handler: app.lambda_handler
+      Runtime: python3.9
+      MemorySize: 128
+      Timeout: 100
+      Architectures:
+        - x86_64
+      Events:
+        CloudWatchEvent:
+          Type: Schedule
+          Properties:
+            Schedule: cron(0 * * * ? *)
